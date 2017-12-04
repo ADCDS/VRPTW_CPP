@@ -174,7 +174,7 @@ void Vehicle::add_node(Point* p, int pos, int &ec)
 	p->state[solution].first = this;	
 }
 
-void Vehicle::remove_node(int pos) throw(std::exception)
+void Vehicle::remove_node(int pos)
 {
 	std::list<VehicleState*>::iterator li = nodes.begin();
 	

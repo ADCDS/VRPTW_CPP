@@ -17,7 +17,7 @@ double Genetic::ticket_max = 0;
 double Genetic::max_weight = 0;
 int Genetic::population_limit = 0;
 
-static struct solutions_comparator
+struct solutions_comparator
 {
 	bool operator()(const std::pair<Solution*, double>& inst1, const std::pair<Solution*, double>& inst2)
 	{

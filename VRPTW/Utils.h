@@ -22,10 +22,10 @@ public:
 	};
 
 	
-	static void Utils::read_file();
-	static void Utils::calculate_distances();
-	static Solution* Utils::pfih();		
-	static Solution* Utils::random_solution();
+	static void read_file();
+	static void calculate_distances();
+	static Solution* pfih();		
+	static Solution* random_solution();
 	
 };
 
