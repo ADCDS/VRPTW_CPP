@@ -22,8 +22,8 @@ void Utils::read_file()
 {
 	std::ifstream inst;
 
-	//inst.open("../Instances/S-RC2-1000/RC21010.TXT");
-	inst.open("../Instances/C101.TXT");
+	inst.open("../Instances/S-RC2-1000/RC21010.TXT");
+	//inst.open("../Instances/C101.TXT");
 	//inst.open("../Instances/RC105.txt");
 	if (inst.is_open())
 	{
@@ -83,12 +83,14 @@ Solution* Utils::pfih()
 	++it;
 
 	Point* curr;
+	double degreesdeposit = atan2(origin->y, origin->x) * (180.0 / M_PI);
+	double newdegree = 0;
 	while (it != Utils::raw_rows.end())
 	{
 		curr = *it;
-		double angulo = atan2(curr->y - origin->y, curr->x - origin->x) * (180.0 / M_PI);
+		newdegree = atan2(curr->y, curr->x) * (180.0 / M_PI);		
 		double d = Utils::distances[0][curr->id];
-		points[curr->id - 1] = std::pair<Point*, double>(curr, (-0.7 * d + 0.1 * curr->due_date + 0.2 * (angulo / 360 * d)));
+		points[curr->id - 1] = std::pair<Point*, double>(curr, (d * -0.7) + (0.1 * curr->due_date) + (0.2 * (newdegree - degreesdeposit) / 360 * d));
 		++it;
 	}
 
@@ -115,9 +117,9 @@ Solution* Utils::pfih()
 			{
 				ec = 0;
 				vehicle->add_node(point.first, i, ec);
-				if (!ec)
+				if (ec == 0)
 				{
-					SubCandidate sb(vehicle->get_weight(), i, vehicle);
+					SubCandidate sb(solution->total_weight(), i, vehicle);
 					candidates.push_back(sb);
 					vehicle->remove_node(i);
 				}
@@ -149,12 +151,39 @@ Solution* Utils::pfih()
 
 Solution* Utils::random_solution()
 {
-	auto solution = pfih();
-	auto i = rand() % 500;
-	auto improved = false;
-	while(i-- > 0)
+	auto solution = new Solution;
+	auto v = new Vehicle(solution);
+	solution->vehicles.push_back(v);
+
+	auto point_pool = Utils::raw_rows;
+	point_pool.erase(point_pool.begin());
+	while(!point_pool.empty())
 	{
-		solution->mutate1(improved);
+		auto pit = point_pool.begin();
+		std::advance(pit, rand() % point_pool.size());
+		auto p = *pit;
+		point_pool.erase(pit);
+		auto ec = 0;
+		for (auto vehicle : solution->vehicles)
+		{
+			for (auto i = 0; i <= vehicle->nodes.size(); ++i)
+			{			
+				ec = 0;
+				vehicle->add_node(p, i, ec);
+				if (ec == 0)
+					goto leave;
+			}			
+		}
+
+		if(ec != 0)
+		{
+			v = new Vehicle(solution);
+			solution->vehicles.push_back(v);
+			auto ec = 0;
+			v->add_node(p, 0, ec);
+		}
+	leave:;
 	}
+	solution->total_weight();
 	return solution;
 }

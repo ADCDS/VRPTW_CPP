@@ -119,6 +119,12 @@ void Vehicle::validate_states(VehicleState* possible_state, int position, int &e
 			{
 				current_state->current_time = current_state->p->ready_time;
 			}
+			/*if(current_state->current_cargo < 0)
+			{
+				ec = 4;
+				return;
+			}*/
+
 			current_state->current_time += current_state->p->service_time;
 			current_state->p->state[solution].second = last_state_position + 1;
 			last_state_position = current_state->p->state[solution].second;

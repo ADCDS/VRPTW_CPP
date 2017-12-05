@@ -15,6 +15,14 @@ public:
 	 * improved is a boolean value, at the end of this function, it teels if the mutation was a success or a failure
 	 */
 	void mutate1(bool& improved);
+	void mutate();
+
+	void mutate_insertion();
+	void mutate_swap();
+	void mutate_inversion();
+
+
+	void print();
 
 	bool has_node(Point* p);
 

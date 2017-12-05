@@ -11,7 +11,6 @@
 #include <unordered_map>
 
 
-
 std::list<std::pair<Solution*, double/*avaliation*/>> Genetic::solutions;
 double Genetic::ticket_max = 0;
 double Genetic::max_weight = 0;
@@ -54,7 +53,7 @@ bool Genetic::avaliate_population()
 		last_weight = (*it).second;
 	}
 	ticket_max = last_weight;
-	if(static_cast<int>(ticket_max) == 0)
+	if (static_cast<int>(ticket_max) == 0)
 	{
 		return false;
 	}
@@ -217,7 +216,7 @@ Solution* Genetic::generate_child(Solution* p1, Solution* p2)
 	while (!vehicle_pool.empty())
 	{
 		auto it = vehicle_pool.begin();
-		std::advance(it, rand() % vehicle_pool.size());		
+		std::advance(it, rand() % vehicle_pool.size());
 		auto pool = *it;
 		vehicle_pool.erase(it);
 
@@ -249,9 +248,9 @@ Solution* Genetic::run()
 	generate_population();
 	solutions.sort(solutions_comparator());
 	while (true)
-	{		
-		if(!avaliate_population())
-		{			
+	{
+		if (!avaliate_population())
+		{
 			return (*solutions.begin()).first;
 		}
 		std::list<std::pair<Solution*, Solution*>> parents = select_parents();
@@ -264,11 +263,11 @@ Solution* Genetic::run()
 
 		//Mutate solutions
 
-		auto improved = false;
+
 		max_weight = 0;
 		for (auto solution : solutions)
-		{						
-				solution.first->mutate1(improved);
+		{			
+				solution.first->mutate();
 
 			if (solution.first->weight > max_weight)
 				max_weight = solution.first->weight;
@@ -286,7 +285,7 @@ Solution* Genetic::run()
 
 		solutions.erase(it, solutions.end());
 
-		//std::cout << "Genetic iteration, best solution: " << (*solutions.begin()).first->weight << "\n";
+		std::cout << "Genetic iteration, best solution: " << (*solutions.begin()).first->weight << "\n";
 	}
 }
 

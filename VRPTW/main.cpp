@@ -7,7 +7,7 @@
 #include <thread>
 #include <stdio.h>
 #include <vector>
-//#define DETERMINISTIC
+#define DETERMINISTIC
 #define CORE_NUM 1
 
 int main()
@@ -32,10 +32,10 @@ int main()
 				int seed = 1;
 #else
 				int seed = rand();
-#endif
-				Genetic::population_limit = 1000;
-				auto solution = Genetic::run();
 				srand(seed);
+#endif
+				Genetic::population_limit = 100;
+				auto solution = Genetic::run();				
 				std::cout << "Genetic solution,\tpopulation:\t" << Genetic::population_limit << "\tseed:\t" << seed << "\t\tweight:\t" << solution->total_weight() << "\n";
 				Genetic::clear();
 			}
