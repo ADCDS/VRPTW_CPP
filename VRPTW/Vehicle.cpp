@@ -119,11 +119,11 @@ void Vehicle::validate_states(VehicleState* possible_state, int position, int &e
 			{
 				current_state->current_time = current_state->p->ready_time;
 			}
-			/*if(current_state->current_cargo < 0)
+			if(current_state->current_cargo < 0)
 			{
 				ec = 4;
 				return;
-			}*/
+			}
 
 			current_state->current_time += current_state->p->service_time;
 			current_state->p->state[solution].second = last_state_position + 1;
@@ -162,7 +162,6 @@ void Vehicle::validate_states(VehicleState* possible_state, int position, int &e
 
 void Vehicle::add_node(Point* p, int pos, int &ec)
 {
-	is_point_on_vehicle(p);
 
 	auto possible_state = new VehicleState(p);
 	validate_states(possible_state, pos, ec);

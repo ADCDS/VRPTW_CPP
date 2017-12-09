@@ -27,7 +27,8 @@ struct solutions_comparator
 void Genetic::generate_population()
 {
 	//The first solution is the best that hillclimbing can get	
-	auto solution = Hillclimbing::run();
+	//auto solution = Hillclimbing::run();
+	auto solution = Utils::random_solution();
 
 	solutions.push_back(std::pair<Solution*, double>(solution, 0));
 	for (int i = 1; i < population_limit; ++i)
@@ -267,7 +268,7 @@ Solution* Genetic::run()
 		max_weight = 0;
 		for (auto solution : solutions)
 		{			
-				solution.first->mutate();
+			solution.first->mutate();
 
 			if (solution.first->weight > max_weight)
 				max_weight = solution.first->weight;

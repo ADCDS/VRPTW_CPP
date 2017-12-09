@@ -79,6 +79,10 @@ void Solution::mutate_insertion()
 	Vehicle* v2;
 	std::advance(vit, rand() % vehicles.size());
 	v1 = *vit;
+
+	if (v1->nodes.size() == 1)
+		return;
+
 	vit = vehicles.begin();
 	std::advance(vit, rand() % vehicles.size());
 	v2 = *vit;
@@ -101,16 +105,21 @@ void Solution::mutate_insertion()
 
 void Solution::mutate_swap()
 {
-	auto vit = vehicles.begin();
+	
 	Vehicle* v1;
 	Vehicle* v2;
-	std::advance(vit, rand() % vehicles.size());
+
+	auto off = rand() % (vehicles.size() - 2 + 1) + 1;	
+	auto vit = vehicles.begin();
+	std::advance(vit, off);	
 	v1 = *vit;
+
 	vit = vehicles.begin();
-	std::advance(vit, rand() % vehicles.size());
+	std::advance(vit, rand() % off);
 	v2 = *vit;
 
 	auto nid = v1->nodes.begin();
+
 	std::advance(nid, rand() % v1->nodes.size());
 	auto node1 = (*nid)->p;
 	nid = v2->nodes.begin();
@@ -118,9 +127,9 @@ void Solution::mutate_swap()
 	auto node2 = (*nid)->p;
 
 	auto node1_original_position = node1->state[this].second;
-	auto node2_original_position = node2->state[this].second;
-
 	v1->remove_node(node1_original_position);
+
+	auto node2_original_position = node2->state[this].second;
 	v2->remove_node(node2_original_position);
 
 	auto ec = 0;
@@ -149,16 +158,13 @@ void Solution::mutate_inversion()
 
 	if (v1->nodes.size() < 3)
 		return;
-	auto range_max = rand() % (v1->nodes.size() - 2 + 1) + 2;	
-	if (range_max == 0)
-		range_max = v1->nodes.size() - 1;
-
+	auto range_max = rand() % (v1->nodes.size() - 2) + 2;
 	auto range_min = rand() % range_max;
 
 	auto nit = v1->nodes.begin();
 	std::advance(nit, range_min);
-	auto nit2 = nit;
-	std::advance(nit2, range_max - range_min);
+	auto nit2 = v1->nodes.begin();
+	std::advance(nit2, range_max);
 	
 	std::list<std::pair<Point*, int>> points_list;
 
@@ -176,7 +182,7 @@ void Solution::mutate_inversion()
 	}
 
 	auto i = 0;
-	for (auto rit = points_list.rbegin(); rit != points_list.rend(); --rit)
+	for (auto rit = points_list.rbegin(); rit != points_list.rend(); ++rit)
 	{
 		auto p = (*rit).first;
 		auto ec = 0;
@@ -225,6 +231,17 @@ void Solution::mutate()
 		break;
 	}
 
+	auto it = vehicles.begin();
+	while(it != vehicles.end())
+	{
+		auto v = *it;
+		auto pit = it++;
+		if(v->nodes.empty())
+		{
+			vehicles.erase(pit);
+			delete v;
+		}
+	}
 	this->total_weight();
 }
 
