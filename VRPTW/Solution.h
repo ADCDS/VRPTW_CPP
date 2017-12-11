@@ -16,6 +16,7 @@ public:
 	 */
 	void mutate1(bool& improved);
 	void mutate();
+	void validate();
 
 	void mutate_insertion();
 	void mutate_swap();

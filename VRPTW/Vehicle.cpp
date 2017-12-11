@@ -121,6 +121,10 @@ void Vehicle::validate_states(VehicleState* possible_state, int position, int &e
 			}
 			if(current_state->current_cargo < 0)
 			{
+				if (iter_num > 0)
+				{
+					reevalueate_route(position, iter_num);
+				}
 				ec = 4;
 				return;
 			}

@@ -7,7 +7,7 @@
 #include <thread>
 #include <stdio.h>
 #include <vector>
-#define DETERMINISTIC
+//#define DETERMINISTIC
 #define CORE_NUM 1
 
 int main()

@@ -19,10 +19,29 @@ double Solution::total_weight()
 	return ret;
 }
 
+void Solution::validate()
+{
+	for (auto vehicle : vehicles)
+	{
+		auto i = 0;
+		for(auto it = vehicle->nodes.begin(); it != vehicle->nodes.end(); ++it)
+		{
+			auto vs = *it;
+			auto pos = vs->p->state[this].second;
+			if(i != pos)
+			{
+				std::cout << "invalid state";
+			}
+			i++;
+		}
+	}
+}
+
+
 
 void Solution::mutate1(bool& improved)
 {
-	improved = false;
+
 	Point* p = nullptr;
 	int ec = 0;
 	double new_weight, original_weight = this->total_weight();
@@ -38,14 +57,17 @@ void Solution::mutate1(bool& improved)
 
 	auto original_vehicle = p->state[this].first;
 	int original_pos = p->state[this].second;
+	//std::cout << "Mutating " << p->id << "\n";
 	original_vehicle->remove_node(original_pos);
 
 	SubCandidate candidate(original_weight, original_pos, original_vehicle);
 
 	for (auto vehicle : this->vehicles)
 	{
+		//std::cout << "Vehicle " << vehicle->id << "\n";
 		for (int i = 0; i <= vehicle->nodes.size(); ++i)
 		{
+			//std::cout << "Node " << i << "\n";
 			ec = 0;
 			vehicle->add_node(p, i, ec);
 			if (!ec)
@@ -61,11 +83,13 @@ void Solution::mutate1(bool& improved)
 				}
 				vehicle->remove_node(i);
 			}
+			//validate();
 		}
 	}
 
 	ec = 0;
 	candidate.v->add_node(p, candidate.pos, ec);	
+	improved = false;
 }
 
 /**
@@ -231,18 +255,22 @@ void Solution::mutate()
 		break;
 	}
 
-	auto it = vehicles.begin();
+	auto it = vehicles.begin();		
+	double ret = 0;
 	while(it != vehicles.end())
-	{
+	{		
 		auto v = *it;
+		ret += v->get_weight();
 		auto pit = it++;
 		if(v->nodes.empty())
 		{
 			vehicles.erase(pit);
 			delete v;
 		}
+	
 	}
-	this->total_weight();
+	weight = ret;
+	
 }
 
 bool Solution::has_node(Point* p)
