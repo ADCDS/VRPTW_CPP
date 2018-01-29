@@ -15,7 +15,7 @@ public:
 	static std::list<std::pair<Solution*, Solution*>> select_parents();
 	static Solution* generate_child(Solution* p1, Solution* p2);
 	static bool avaliate_population();
-	static Solution* run();
+	static Solution* run(int max_iter);
 	static void clear();
 
 	

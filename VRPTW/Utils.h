@@ -26,6 +26,7 @@ public:
 	static void calculate_distances();
 	static Solution* pfih();		
 	static Solution* random_solution();
+	static double random_0_1();
 	
 };
 

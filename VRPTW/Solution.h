@@ -26,8 +26,8 @@ public:
 	void print();
 
 	bool has_node(Point* p);
+	Solution* clone();
 
 	~Solution();
-
 
 };

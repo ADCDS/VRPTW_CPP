@@ -26,7 +26,7 @@ struct solutions_comparator
 
 void Genetic::generate_population()
 {
-	std::cout << "Generating population\n";
+	//std::cout << "Generating population\n";
 	//The first solution is the best that hillclimbing can get	
 	auto solution = Hillclimbing::run();
 	//auto solution = Utils::random_solution();
@@ -43,7 +43,7 @@ void Genetic::generate_population()
 	}
 	//ticket_max = pow(ticket_max, 2); // to much
 	max_weight *= 2;
-	std::cout << "Initial solutions calculated\n";
+	//std::cout << "Initial solutions calculated\n";
 }
 
 bool Genetic::avaliate_population()
@@ -245,11 +245,11 @@ Solution* Genetic::generate_child(Solution* p1, Solution* p2)
 	return solution;
 }
 
-Solution* Genetic::run()
+Solution* Genetic::run(int max_iter)
 {
 	generate_population();
 	solutions.sort(solutions_comparator());
-	while (true)
+	while (max_iter-- > 0)
 	{
 		if (!avaliate_population())
 		{
@@ -288,6 +288,7 @@ Solution* Genetic::run()
 
 		//std::cout << "Genetic iteration, best solution: " << (*solutions.begin()).first->weight << "\n";
 	}
+	return solutions.begin()->first;
 }
 
 void Genetic::clear()

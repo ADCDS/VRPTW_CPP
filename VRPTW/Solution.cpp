@@ -313,3 +313,15 @@ void Solution::print()
 		std::cout << "\n";
 	}
 }
+
+
+Solution* Solution::clone()
+{
+	auto s = new Solution();
+	for (auto vehicle : this->vehicles)
+	{
+		s->vehicles.push_back(vehicle->clone(s));
+	}
+	s->weight = this->weight;
+	return s;
+}

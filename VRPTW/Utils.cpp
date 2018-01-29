@@ -187,3 +187,9 @@ Solution* Utils::random_solution()
 	solution->total_weight();
 	return solution;
 }
+
+
+double Utils::random_0_1()
+{
+	return ((double)rand() / (RAND_MAX));
+}

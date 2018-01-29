@@ -9,6 +9,7 @@ public:
 	double current_time = 0;
 	double current_distance = 0;
 	bool True = true;
+	VehicleState* clone();
 
 
 

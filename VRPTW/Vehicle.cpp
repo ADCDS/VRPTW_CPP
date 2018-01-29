@@ -242,5 +242,21 @@ Vehicle::~Vehicle()
 	for (auto node : nodes)
 	{
 		delete node;
-	}	
+	}
+}
+
+Vehicle* Vehicle::clone(Solution* s)
+{
+	auto v = new Vehicle(s);
+	v->id = this->id;
+	VehicleState* ln = nullptr;
+	for (auto node : this->nodes)
+	{
+		auto clone = node->clone();
+		ln = clone;
+		clone->p->state[s] = {v, node->p->state[this->solution].second};
+		v->nodes.push_back(clone);
+	}
+	v->last_node = ln;	
+	return v;
 }

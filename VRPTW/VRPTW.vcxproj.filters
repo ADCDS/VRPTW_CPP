@@ -45,6 +45,9 @@
     <ClInclude Include="Genetic.h">
       <Filter>Source Files\Algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="SAnnealing.h">
+      <Filter>Source Files\Algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SubCandidate.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files\Algorithms</Filter>
     </ClCompile>
     <ClCompile Include="Genetic.cpp">
+      <Filter>Source Files\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="SAnnealing.cpp">
       <Filter>Source Files\Algorithms</Filter>
     </ClCompile>
   </ItemGroup>

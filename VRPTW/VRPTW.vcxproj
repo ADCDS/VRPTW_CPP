@@ -114,6 +114,7 @@
     <ClInclude Include="Genetic.h" />
     <ClInclude Include="Hillclimbing.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="SAnnealing.h" />
     <ClInclude Include="Solution.h" />
     <ClInclude Include="SubCandidate.h" />
     <ClInclude Include="Utils.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Hillclimbing.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="SAnnealing.cpp" />
     <ClCompile Include="Solution.cpp" />
     <ClCompile Include="SubCandidate.cpp" />
     <ClCompile Include="Utils.cpp" />

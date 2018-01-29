@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <mutex>
 
 class Vehicle;
 class Solution;
@@ -17,6 +18,7 @@ public:
 
 	
 	std::unordered_map<Solution*, std::pair<Vehicle*, int /*pos*/>> state;
+	
 
 	Point(int id, int x, int y, int demand, int ready_time, int due_date, int service_time)
 		: id(id),

@@ -18,6 +18,7 @@ public:
 	void add_node(Point* p, int pos, int &ec);
 	void remove_node(int pos);
 	double get_weight() const;
+	Vehicle* clone(Solution* s);
 	
 	
 	Vehicle(Solution * s);
