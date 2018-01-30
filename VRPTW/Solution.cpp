@@ -236,8 +236,10 @@ void Solution::mutate_inversion()
 
 void Solution::mutate()
 {
-	auto r_operator = rand() % 4;
 	auto improvement = false;
+	//auto r_operator = rand() % 3;
+	/*auto r_operator = 3;
+	
 	switch (r_operator)
 	{
 	default:
@@ -245,15 +247,16 @@ void Solution::mutate()
 		mutate1(improvement);
 		break;
 	case 1:
-		mutate_insertion();
+		mutate_insertion();//leak
 		break;
 	case 2:
-		mutate_swap();
+		mutate_swap();//leak
 		break;
 	case 3:
-		mutate_inversion();
+		mutate_inversion();//leak
 		break;
-	}
+	}*/
+	mutate1(improvement);
 
 	auto it = vehicles.begin();		
 	double ret = 0;
