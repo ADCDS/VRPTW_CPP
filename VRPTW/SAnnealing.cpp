@@ -19,7 +19,7 @@ Solution* SAnnealing::run(double initial_temp, double final_temp, double t_decre
 			
 			delete candidate;
 			candidate = next_solution;
-			//std::cout << "SA -> Next solution: " << candidate->weight << ", Delta: " << delta << "\n";
+			std::cout << "SA -> Next solution: " << candidate->weight << ", T: " << current_temp << ", " << "Best: " << best_solution->weight << ", Delta: " << delta << "\n";
 
 			
 			if (best_solution->weight > candidate->weight) {

@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <memory>
 
 
 class VehicleState;
@@ -10,7 +11,7 @@ class Solution;
 class Utils
 {
 public:
-	static VehicleState* origin;
+	static std::shared_ptr<VehicleState> origin;
 	static std::list<Point*> raw_rows;	
 	static double** distances;
 

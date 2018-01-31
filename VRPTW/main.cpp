@@ -36,14 +36,14 @@ int main()
 #endif
 			srand(seed);
 			//Hillclimbing
-			std::cout << "Seed: " << seed << "\n";
+			/*std::cout << "Seed: " << seed << "\n";
 			std::cout << "Hilclimbing, 200 solutions, max_fails: 10000\n";
 			for (auto j = 0; j < 1000; ++j)
 			{
 				auto solution = Hillclimbing::run(10000);
 				std::cout << solution->weight << ", ";
 				delete solution;
-			}
+			}*/
 
 			//Genetic algorithm
 			/*std::cout << "\nGenetic algorithm, 200 solutions, population limit: 10; max_iter: 10000\n";
@@ -57,9 +57,9 @@ int main()
 
 			//Simulated annealing
 			std::cout << "\nSimulated annealing, 200 solutions, temp: 100; min_temp: 0; tmp_lost_per_it: 0.01\n";
-			for (auto j = 0; j < 1000; ++j)
+			for (auto j = 0; j < 1; ++j)
 			{
-				auto solution = SAnnealing::run(100, 0, 0.01);
+				auto solution = SAnnealing::run(100, 0, 0.00001);
 				std::cout << solution->weight << ", ";
 				delete solution;
 			}

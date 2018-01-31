@@ -14,7 +14,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-VehicleState* Utils::origin;
+std::shared_ptr<VehicleState> Utils::origin;
 std::list<Point*> Utils::raw_rows;
 double** Utils::distances;
 
@@ -48,7 +48,7 @@ void Utils::read_file()
 				Utils::raw_rows.push_back(new Point(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5], aux[6]));
 			}
 		}
-		Utils::origin = new VehicleState(*Utils::raw_rows.begin());		
+		Utils::origin = std::make_shared<VehicleState>(*Utils::raw_rows.begin());		
 		Utils::distances = (double**)malloc(sizeof(double*) * Utils::raw_rows.size());
 		for (int i = 0; i < Utils::raw_rows.size(); ++i)
 		{

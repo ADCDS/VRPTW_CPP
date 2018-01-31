@@ -18,8 +18,8 @@
 }*/
 void Vehicle::reevalueate_route(int start, int end)
 {
-	std::list<VehicleState*>::iterator li;
-	VehicleState* last;	
+	std::list<std::shared_ptr<VehicleState>>::iterator li;
+	std::shared_ptr<VehicleState> last;	
 	//start = 0;
 	//end = nodes.size();
 	
@@ -37,7 +37,7 @@ void Vehicle::reevalueate_route(int start, int end)
 		last = *std::prev(li);
 		
 	}
-	VehicleState* curr;
+	std::shared_ptr<VehicleState> curr;
 	while (++start <= end && li != nodes.end())
 	{
 		curr = *li;
@@ -69,15 +69,15 @@ bool Vehicle::is_point_on_vehicle(Point* p)
 	return false;
 }
 
-void Vehicle::validate_states(VehicleState* possible_state, int position, int &ec)
+void Vehicle::validate_states(std::shared_ptr<VehicleState> possible_state, int position, int &ec)
 {
 	int c_position = position;
 	
 	if (!nodes.empty())
 	{
-		std::list<VehicleState*>::iterator li;
-		VehicleState* last_state;
-		VehicleState* current_state;
+		std::list<std::shared_ptr<VehicleState>>::iterator li;
+		std::shared_ptr<VehicleState> last_state;
+		std::shared_ptr<VehicleState> current_state;
 		int last_state_position;
 		if (position == 0)
 		{
@@ -167,13 +167,11 @@ void Vehicle::validate_states(VehicleState* possible_state, int position, int &e
 void Vehicle::add_node(Point* p, int pos, int &ec)
 {
 
-	auto possible_state = new VehicleState(p);
+	auto possible_state = std::make_shared<VehicleState>(p);
 	validate_states(possible_state, pos, ec);
-	if(ec)
-	{
-		delete possible_state;
+	if(ec)			
 		return;
-	}
+
 	auto it = nodes.begin();
 	auto tmp_pos = pos;
 	while(tmp_pos-- > 0)
@@ -185,15 +183,14 @@ void Vehicle::add_node(Point* p, int pos, int &ec)
 
 void Vehicle::remove_node(int pos)
 {
-	std::list<VehicleState*>::iterator li = nodes.begin();
+	std::list<std::shared_ptr<VehicleState>>::iterator li = nodes.begin();
 	
-	VehicleState* last;
+	std::shared_ptr<VehicleState> last;
 	
 	int c_pos = pos;
 	while (c_pos-- > 0)
 		++li;
-
-	delete *li;
+	
 	nodes.erase(li++);
 
 	if (pos == 0)
@@ -205,7 +202,7 @@ void Vehicle::remove_node(int pos)
 		last = *std::prev(li);
 	}
 
-	VehicleState* curr;
+	std::shared_ptr<VehicleState> curr;
 	while (li != nodes.end())
 	{
 		curr = *li;
@@ -237,19 +234,12 @@ Vehicle::Vehicle(Solution *s)
 	solution = s;
 }
 
-Vehicle::~Vehicle()
-{
-	for (auto node : nodes)
-	{
-		delete node;
-	}
-}
 
 Vehicle* Vehicle::clone(Solution* s)
 {
 	auto v = new Vehicle(s);
 	v->id = this->id;
-	VehicleState* ln = nullptr;
+	std::shared_ptr<VehicleState> ln = nullptr;
 	for (auto node : this->nodes)
 	{
 		auto clone = node->clone();

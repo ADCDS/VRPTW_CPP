@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 class Point;
 
 class VehicleState
@@ -9,7 +10,7 @@ public:
 	double current_time = 0;
 	double current_distance = 0;
 	bool True = true;
-	VehicleState* clone();
+	std::shared_ptr<VehicleState> clone() const;
 
 
 

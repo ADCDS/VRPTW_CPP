@@ -237,8 +237,8 @@ void Solution::mutate_inversion()
 void Solution::mutate()
 {
 	auto improvement = false;
-	//auto r_operator = rand() % 3;
-	/*auto r_operator = 3;
+	auto r_operator = rand() % 4;
+	//auto r_operator = 3;
 	
 	switch (r_operator)
 	{
@@ -255,8 +255,8 @@ void Solution::mutate()
 	case 3:
 		mutate_inversion();//leak
 		break;
-	}*/
-	mutate1(improvement);
+	}
+	//mutate1(improvement);
 
 	auto it = vehicles.begin();		
 	double ret = 0;
