@@ -46,23 +46,23 @@ int main()
 			}*/
 
 			//Genetic algorithm
-			/*std::cout << "\nGenetic algorithm, 200 solutions, population limit: 10; max_iter: 10000\n";
+			std::cout << "\nGenetic algorithm, 200 solutions, population limit: 10; max_iter: 10000\n";
 			for(auto j = 0; j < 200; ++j)
 			{				
-				Genetic::population_limit = 30;
-				auto solution = Genetic::run(10000);
+				Genetic::population_limit = 20;
+				auto solution = Genetic::run(-1);
 				std::cout << solution->weight << ", ";
 				Genetic::clear();				
-			}*/
+			}
 
 			//Simulated annealing
-			std::cout << "\nSimulated annealing, 200 solutions, temp: 100; min_temp: 0; tmp_lost_per_it: 0.01\n";
+			/*std::cout << "\nSimulated annealing, 200 solutions, temp: 100; min_temp: 0; tmp_lost_per_it: 0.01\n";
 			for (auto j = 0; j < 1; ++j)
 			{
 				auto solution = SAnnealing::run(100, 0, 0.00001);
 				std::cout << solution->weight << ", ";
 				delete solution;
-			}
+			}*/
 		}
 		));
 	}

@@ -26,6 +26,9 @@ Solution* SAnnealing::run(double initial_temp, double final_temp, double t_decre
 				delete best_solution;
 				best_solution = candidate->clone();
 			}
+		}else
+		{
+			delete next_solution;
 		}
 		current_temp -= t_decrese;
 		//std::cout << "T: " << current_temp << "\n";

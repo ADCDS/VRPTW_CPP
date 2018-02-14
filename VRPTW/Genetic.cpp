@@ -249,7 +249,7 @@ Solution* Genetic::run(int max_iter)
 {
 	generate_population();
 	solutions.sort(solutions_comparator());
-	while (max_iter-- > 0)
+	while (true || max_iter-- > 0)
 	{
 		if (!avaliate_population())
 		{
@@ -266,9 +266,8 @@ Solution* Genetic::run(int max_iter)
 		//Mutate solutions
 		max_weight = 0;
 		for (auto solution : solutions)
-		{			
-			if(rand() % 5 > 1)
-				solution.first->mutate();
+		{
+			solution.first->mutate();
 
 			if (solution.first->weight > max_weight)
 				max_weight = solution.first->weight;
@@ -286,7 +285,7 @@ Solution* Genetic::run(int max_iter)
 
 		solutions.erase(it, solutions.end());
 
-		//std::cout << "Genetic iteration, best solution: " << (*solutions.begin()).first->weight << "\n";
+		std::cout << "Genetic iteration, best solution: " << (*solutions.begin()).first->weight << "\n";
 	}
 	return solutions.begin()->first;
 }
