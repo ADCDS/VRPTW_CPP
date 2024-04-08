@@ -37,7 +37,7 @@ void Solution::mutate1(bool &improved) {
     int ec = 0;
     double new_weight, original_weight = this->total_weight();
 
-    int index = (rand() % (Utils::raw_rows.size() - 1)) +1; // We do this to avoid targetting the depot point (id == 0 point)
+    int index = (rand() % (Utils::raw_rows.size() - 1)) + 1; // We do this to avoid targetting the depot point (id == 0 point)
 
     auto it = Utils::raw_rows.begin();
 
@@ -55,8 +55,22 @@ void Solution::mutate1(bool &improved) {
     int original_pos = p->state[this].second;
     //std::cout << "Mutating " << p->id << "\n";
     original_vehicle->remove_node(original_pos);
-    ec = 0;
-    original_vehicle->add_node(p, original_pos, ec);
+
+    /**
+     * These two lines bellow are just for test, We are trying to remove node from a vehicle route
+     * then insert into a new one, if this insertion provides a valid solution and it is better than the previous one
+     * then that solution becomes the base solution.
+     *
+     * The thing is, most of the times, that insertion will fail, and then we need to put the node back
+     * where it once was. This happens in this function down bellow: candidate.v->add_node(p, candidate.pos, ec);
+     * But, sadly it is not working.
+     *
+     * Those commented two lines down bellow this comment are here just for test, after calling ->add_node() ec should
+     * be == 0 because we are just inserting a node that we just removed. This bugs happens because Vehicle::validate_states
+     * are not implemented correctly. I'll leave a comment there if you want to see.
+     */
+//    ec = 0;
+//    original_vehicle->add_node(p, original_pos, ec);
 
     SubCandidate candidate(original_weight, original_pos, original_vehicle);
 

@@ -61,6 +61,11 @@ bool Vehicle::is_point_on_vehicle(Point *p) {
 }
 
 void Vehicle::validate_states(std::shared_ptr<VehicleState> possible_state, int position, int &ec) {
+    /**
+     * So, here we are, validate_states should take a "possible_state" that is basically a point (or a customer)
+     * and try to insert into the current vehicle's route. it should return ec == 0 if it is possible to add the point
+     * into the route, otherwise it should return ec != 0
+     */
     if (!nodes.empty()) {
         std::list<std::shared_ptr<VehicleState>>::iterator li;
         std::shared_ptr<VehicleState> last_state;
@@ -83,6 +88,12 @@ void Vehicle::validate_states(std::shared_ptr<VehicleState> possible_state, int 
         double dist;
 
         std::shared_ptr<VehicleState> current_state;
+        /**
+         * This iteration bellow is causing the problems, sadly im not able to fix it.
+         * But the idea is that I need to add the possible_point into the vehicle route
+         * and then, for each point that is after the inserted, calculate its constraints and
+         * determine if the route is feasible.
+         */
         for (; li != nodes.end(); ++li) {
             current_state = *li;
             dist = Utils::distances[last_state->p->id][current_state->p->id];
