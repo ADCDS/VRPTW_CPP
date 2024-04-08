@@ -1,5 +1,5 @@
 #define CORE_NUM 1
-//#define DETERMINISTIC
+#define DETERMINISTIC
 
 #include <iostream>
 #include <ctime>

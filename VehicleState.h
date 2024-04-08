@@ -9,7 +9,6 @@ public:
 	int current_cargo = 1000;
 	double current_time = 0;
 	double current_distance = 0;
-	bool True = true;
 	std::shared_ptr<VehicleState> clone() const;
 
 

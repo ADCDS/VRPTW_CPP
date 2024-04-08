@@ -16,7 +16,10 @@ public:
 	int due_date;
 	int service_time;
 
-	
+
+    /**
+     * Every point is attended by a vehicle in a solution
+     */
 	std::unordered_map<Solution*, std::pair<Vehicle*, int /*pos*/>> state;
 	
 

@@ -4,24 +4,24 @@ class Vehicle;
 class SubCandidate
 {
 public:
-	double peso;
+	double weight;
 	int pos;
 	Vehicle* v;
 
 
-	SubCandidate(double peso, int pos, Vehicle* v)
-		: peso(peso),
-		  pos(pos),
-		  v(v)
+	SubCandidate(double weight, int pos, Vehicle* v)
+		: weight(weight),
+          pos(pos),
+          v(v)
 	{
 	}
 
 	bool operator < (const SubCandidate& inst) const{
-		return peso < inst.peso;
+		return weight < inst.weight;
 	}
 
 	bool operator > (const SubCandidate& inst) const {
-		return peso > inst.peso;
+		return weight > inst.weight;
 	}
 
 	SubCandidate();
